@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "npx prisma generate && tsx watch src/index.ts",
-    "start": "npx prisma db push && npx prisma generate && node src/index.ts"
+    "start": "npx prisma generate && node src/index.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.7.0",
