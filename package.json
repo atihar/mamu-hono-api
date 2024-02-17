@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "npx prisma generate && tsx watch src/index.ts",
+    "start": "npx prisma db push && npx prisma generate && node ./build/server.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.7.0",
