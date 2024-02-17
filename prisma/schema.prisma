@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid()) @map("_id")
+  username   String?
+  email      String   @unique
+  password   String
+  genders    String?
+  isVerified Boolean?
+  avatar     String?
+  phone      String?
+  birth_date String?
+  location   String?
+  created_at DateTime
+  updated_at DateTime
+  Dream      Dream[]
+}
+
+model Dream {
+  id            String           @id @default(uuid()) @map("_id")
+  user          User             @relation(fields: [userEmail], references: [email])
+  userEmail     String
+  title         String
+  description   String
+  date_of_dream String
+  created_at    DateTime
+  updated_at    DateTime
+  Internation   Interpretation[]
+}
+
+model Interpretation {
+  id          String   @id @default(uuid()) @map("_id")
+  dream       Dream    @relation(fields: [dreamId], references: [id])
+  dreamId     String
+  description String
+  created_at  DateTime
+  updated_at  DateTime
+}
+
+model Tags {
+  id   String @id @default(uuid()) @map("_id")
+  name String
+}
