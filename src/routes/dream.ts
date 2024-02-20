@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 
 dream.post('/', async (c) => {
-    const { title, description, date_of_dream } = await c.req.json();
+    const { title, description, date_of_dream, email } = await c.req.json();
 
     const dream = await prisma.dream.create({
         data: {
@@ -16,7 +16,7 @@ dream.post('/', async (c) => {
             date_of_dream,
             user: {
                 connect: {
-                    email: "papajohn@gmail.com",
+                    email: email,
                 }
             },
             created_at: new Date(),

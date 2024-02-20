@@ -42,12 +42,9 @@ model Interpretation {
   id          String   @id @default(uuid()) @map("_id")
   dream       Dream    @relation(fields: [dreamId], references: [id])
   dreamId     String
-  description String
+  summary     String
+  affiliation String?
+  dream_type  String?
   created_at  DateTime
   updated_at  DateTime
-}
-
-model Tags {
-  id   String @id @default(uuid()) @map("_id")
-  name String
 }

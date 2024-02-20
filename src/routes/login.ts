@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { PrismaClient } from "@prisma/client";
 import { env } from 'hono/adapter'
 import { decode, sign, verify } from 'hono/jwt'
+import * as bcrypt from "bcrypt";
 
 const login = new Hono()
 const prisma = new PrismaClient();
@@ -24,11 +25,12 @@ login.post('/', async (c) => {
     }
 
     if (user.password) {
-        // const match = await bcrypt.compare(
-        //     password,
-        //     user?.hashPassword
-        // );
-        if (user.password === password) {
+        const match = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (match) {
             const payload = {
                 email: email,
                 role: 'dreamer',

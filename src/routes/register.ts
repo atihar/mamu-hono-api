@@ -1,22 +1,26 @@
 import { Hono } from 'hono'
 import { PrismaClient } from "@prisma/client";
+import * as bcrypt from "bcrypt";
+
 
 const register = new Hono()
 const prisma = new PrismaClient();
 
 
 register.get('/', (c) => {
-  return c.text('Registration get Hono!')
+    return c.text('Registration get Hono!')
 })
 
 register.post('/', async (c) => {
     const { username, email, password, phone } = await c.req.json();
+
+    const hashPassword = await bcrypt.hash(password, 10);
     // create a new user
     const user = await prisma.user.create({
         data: {
             username,
             email,
-            password,
+            password : hashPassword,
             isVerified: false,
             phone,
             created_at: new Date(),
