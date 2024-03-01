@@ -36,7 +36,7 @@ login.post('/', async (c) => {
                 role: 'dreamer',
             }
             const token = await sign(payload, SECRET)
-            return c.json({ token, status: 500 })
+            return c.json({ token, status: 201 })
         }
         // Password doesn't match
         prisma.$disconnect();
