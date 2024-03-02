@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { PrismaClient } from "@prisma/client";
+import { decode } from 'hono/jwt'
 
 
 const dream = new Hono()
@@ -29,7 +30,15 @@ dream.post('/', async (c) => {
 })
 
 dream.get('/', async (c) => {
-    return c.json({ data: "dream by user", status: 200 })
+    const email = c.req.queries('u')
+
+    const dreams = await prisma.dream.findMany({
+        where: {
+            userEmail: email?.toString()
+        }
+    }
+    )
+    return c.json(dreams)
 })
 
 
