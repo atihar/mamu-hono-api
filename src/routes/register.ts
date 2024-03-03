@@ -12,7 +12,7 @@ register.get('/', (c) => {
 })
 
 register.post('/', async (c) => {
-    const { username, email, password, phone } = await c.req.json();
+    const { username, email, password, phone, birth_date, gender, location } = await c.req.json();
 
     const hashPassword = await bcrypt.hash(password, 10);
     // create a new user
@@ -20,9 +20,12 @@ register.post('/', async (c) => {
         data: {
             username,
             email,
-            password : hashPassword,
+            password: hashPassword,
             isVerified: false,
             phone,
+            birth_date,
+            gender,
+            location,
             created_at: new Date(),
             updated_at: new Date()
         },
