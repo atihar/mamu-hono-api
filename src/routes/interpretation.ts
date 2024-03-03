@@ -45,17 +45,12 @@ interpretation.post('/', async (c) => {
     // console.log("Positive Affirmation:", positiveAffirmation);
     // console.log("Dream Type:", dreamType);
 
-    const message = await prisma.interpretation.create({
+    const message = await prisma.dream.update({
+        where: { id: dream_id },
         data: {
-            summary,
-            affiliation: positiveAffirmation,
+            interpretation: summary,
+            affirmation: positiveAffirmation,
             dream_type: dreamType,
-            dream: {
-                connect: {
-                    id: dream_id,
-                }
-            },
-            created_at: new Date(),
             updated_at: new Date()
         },
     });

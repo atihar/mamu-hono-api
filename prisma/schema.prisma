@@ -27,24 +27,15 @@ model User {
 }
 
 model Dream {
-  id            String           @id @default(uuid()) @map("_id")
-  user          User             @relation(fields: [userEmail], references: [email])
-  userEmail     String
-  title         String
-  description   String
-  date_of_dream String
-  created_at    DateTime
-  updated_at    DateTime
-  Internation   Interpretation[]
-}
-
-model Interpretation {
-  id          String   @id @default(uuid()) @map("_id")
-  dream       Dream    @relation(fields: [dreamId], references: [id])
-  dreamId     String
-  summary     String
-  affiliation String?
-  dream_type  String?
-  created_at  DateTime
-  updated_at  DateTime
+  id             String   @id @default(uuid()) @map("_id")
+  user           User     @relation(fields: [userEmail], references: [email])
+  userEmail      String
+  title          String
+  description    String
+  date_of_dream  String
+  dream_type     String?
+  affirmation    String?
+  interpretation String?
+  created_at     DateTime
+  updated_at     DateTime
 }
