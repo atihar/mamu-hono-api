@@ -4,6 +4,7 @@ import login from './routes/login'
 import register from './routes/register'
 import dream from './routes/dream'
 import interpretation from './routes/interpretation'
+import suggestion from './routes/suggestion'
 
 
 const app = new Hono().basePath('/api')
@@ -17,6 +18,7 @@ app.route('/login', login);
 app.route('/register', register);
 app.route('/dream', dream);
 app.route('/interpretation', interpretation);
+app.route('/suggestion', suggestion);
 
 
 app.notFound((c) => {

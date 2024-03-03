@@ -82,7 +82,11 @@ dream.get('/', async (c) => {
     const dreams = await prisma.dream.findMany({
         where: {
             userEmail: email?.toString()
-        }
+        },
+        orderBy: {
+            created_at: 'desc',
+        },
+        take: 21,
     }
     )
     return c.json(dreams)
@@ -98,7 +102,7 @@ dream.delete('/', async (c) => {
         }
         )
         return c.json({ data: 'successfully deleted the dream' })
-    } catch(err) {
+    } catch (err) {
         return c.json({ error: err })
     }
 })
