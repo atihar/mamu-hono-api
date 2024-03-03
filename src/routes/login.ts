@@ -32,7 +32,10 @@ login.post('/', async (c) => {
 
         if (match) {
             const payload = {
+                id: user.id,
                 email: email,
+                username: user.email,
+                birth_date: user.birth_date,
                 role: 'dreamer',
             }
             const token = await sign(payload, SECRET)
