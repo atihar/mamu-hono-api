@@ -13,6 +13,7 @@ const openai = new OpenAI({
 
 dream.post('/', async (c) => {
     const { title, description, date_of_dream, email } = await c.req.json();
+    console.log(description)
 
     const dream = await prisma.dream.create({
         data: {
@@ -85,6 +86,21 @@ dream.get('/', async (c) => {
     }
     )
     return c.json(dreams)
+})
+dream.delete('/', async (c) => {
+    const id = c.req.queries('id')
+
+    try {
+        await prisma.dream.delete({
+            where: {
+                id: id?.toString(),
+            }
+        }
+        )
+        return c.json({ data: 'successfully deleted the dream' })
+    } catch(err) {
+        return c.json({ error: err })
+    }
 })
 
 
